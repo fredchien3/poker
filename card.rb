@@ -1,3 +1,5 @@
+require 'colorize'
+
 class Card
     attr_reader :importance, :suit, :face, :color
 
@@ -8,7 +10,9 @@ class Card
         # i.e. is higher rank better? or is lower rank better? 
         @suit = suit # a symbol
         self.set_face # string
+        #---for printing---
         self.set_color # symbol
+        self.set_icon # string
     end
 
     def set_face
@@ -35,9 +39,31 @@ class Card
         end
     end
 
-    def inspect
-        {@face => @suit}.inspect
+    def set_icon
+        # ♠♥♦♣
+        # ♤♡♢♧
+        case @suit
+        when :spade
+            @icon = "♠"
+        when :club
+            @icon = "♣"
+        when :heart
+            @icon = "♥"
+        when :diamond
+            @icon = "♦"
+        end
     end
 
+    def inspect
+        {@face => @icon}.inspect
+    end
+
+    def render
+        if @face == "10" # for even spacing of single- and double- digit cards
+            print "#{@face}#{@icon}".colorize(@color).on_white
+        else
+            print " #{@face}#{@icon}".colorize(@color).on_white
+        end
+    end
 
 end

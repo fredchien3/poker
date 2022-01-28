@@ -16,4 +16,12 @@ class Deck
         true
     end
 
+    def display
+        @deck.each do |card|
+            card.render
+            puts " "
+        end
+        true
+    end
+
 end
