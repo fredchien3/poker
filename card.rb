@@ -3,10 +3,12 @@ class Card
 
     def initialize(importance, suit)
         @importance = importance  # integer
+        # a card's rank will be referred to as its importance
+        # to avoid personal confusion over say 'leaderboard' rank vs 'company' rank
+        # i.e. is higher rank better? or is lower rank better? 
         @suit = suit # a symbol
-        # face is a string
-        self.set_face
-        self.set_color
+        self.set_face # string
+        self.set_color # symbol
     end
 
     def set_face
@@ -36,22 +38,6 @@ class Card
     def inspect
         {@face => @suit}.inspect
     end
+
+
 end
-
-class Deck
-    SUITS = %i(spade heart club diamond)
-
-    attr_reader :deck
-
-    def initialize
-        @deck = Array.new
-        (1..13).each do |importance|
-            SUITS.each do |suit|
-                @deck << Card.new(importance, suit)
-            end
-        end
-        true
-    end
-end
-
-class Hand
