@@ -3,8 +3,7 @@ require_relative 'card.rb'
 class Deck
     SUITS = %i(spade heart club diamond)
 
-    attr_reader :deck_array
-    # attr_accessor :deck_array IF NEEDED
+    attr_accessor :deck_array
 
     def initialize
         @deck_array = Array.new
@@ -25,12 +24,15 @@ class Deck
     end
 
     def deal_to(player)
-        # card = 
         player.hand_array << @deck_array.pop
     end
 
     def count
         @deck_array.length
+    end
+
+    def shuffle!
+        @deck_array.shuffle!
     end
 
 end

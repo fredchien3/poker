@@ -21,6 +21,29 @@ class Hand
         # can implement a rank array as a tiebreaker. or some other solution.
     end
 
+    def type
+        case self.rank
+        when 9
+            return "Straight Flush"
+        when 8
+            return "Four of a Kind"
+        when 7
+            return "Full House"
+        when 6
+            return "Flush"
+        when 5
+            return "Straight"
+        when 4
+            return "Three of a Kind"
+        when 3
+            return "Two pair"
+        when 2
+            return "One pair"
+        when 1
+            return "High Card"
+        end
+    end
+
     def sort! # sorts by importance, starting with most important
         @hand_array.sort_by! { |card| -card.importance }
     end
