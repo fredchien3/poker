@@ -1,18 +1,12 @@
 require_relative 'deck.rb'
 
 class Hand
-    attr_accessor :hand
+    attr_accessor :hand_array
 
-    def initialize(the_deck=Deck.new)
-        @hand = Array.new
-        @the_deck = the_deck
-        true
+    def initialize
+        @hand_array = Array.new
     end
     
-    def draw_from_deck
-        5.times { @hand << @the_deck.deck.pop }
-    end
-
     def rank # evaluate the rank of current hand.
         self.sort!
         return 9 if self.straight_flush?
@@ -28,18 +22,22 @@ class Hand
     end
 
     def sort! # sorts by importance, starting with most important
-        @hand.sort_by! { |card| -card.importance }
+        @hand_array.sort_by! { |card| -card.importance }
     end
     
+    def versus(other_hand)
+        self.rank <=> other_hand.rank
+    end
+
     # ---helper methods below---
 
     def all_same_suit?
-        @hand.uniq { |card| card.suit }.length == 1
+        @hand_array.uniq { |card| card.suit }.length == 1
     end
 
     def sequential_rank?
         arr = Array.new # array of cards' importance, from high to low
-        @hand.each do |card|
+        @hand_array.each do |card|
             arr << card.importance
         end
         arr.each_cons(2).all? { |a, b| a-1 == b }
@@ -47,7 +45,7 @@ class Hand
 
     def count_kinds # kinds i.e. importances
         count = Hash.new(0)
-        @hand.each { |card| count[card.importance] += 1 }
+        @hand_array.each { |card| count[card.importance] += 1 }
         return count
     end
 
